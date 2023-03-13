@@ -25,7 +25,7 @@ router.get("/", auth, async (req, res) => {
         const myPoints = await getMyPoints(user_id);
         const teamPoints = await getTeamPoints(team_id);
         await updateLastLogin(user_id);
-        res.status(200).send({ users, myDone, posts, habit, myPoints, teamPoints, myName });
+        res.status(200).send({ users, user_id, myDone, posts, habit, myPoints, teamPoints, myName });
     } catch (error) {
         console.log(error)
         res

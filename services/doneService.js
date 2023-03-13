@@ -50,6 +50,18 @@ const checkIsCurDoneShouldBeReward = donesInline => {
     return donesInline % POINTS_INLINE_FOR_REWARD === 0 ? true : false;
 };
 
+const getPointsForLevels = points => {
+    let curLevelPoints, nextLevelPoints;
+    for (let i = 0; i < POINTS_FOR_NEXT_LEVEL.length; i++) {
+        if (POINTS_FOR_NEXT_LEVEL[i + 1] > points) {
+            curLevelPoints = POINTS_FOR_NEXT_LEVEL[i]
+            nextLevelPoints = POINTS_FOR_NEXT_LEVEL[i + 1]
+            break
+        };
+    };
+    return { curLevelPoints, nextLevelPoints }
+};
+
 module.exports = {
     addMyDone,
     getMyDones,
@@ -59,5 +71,6 @@ module.exports = {
     checkIsCurDoneInLine,
     checkIsCurDoneShouldBeReward,
     addLineToUser,
-    reloadLineToUser
+    reloadLineToUser,
+    getPointsForLevels
 }
