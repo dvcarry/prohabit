@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const pool = require('../config/bd');
 const { MY_NAME } = require("../config/constants");
 const { getTeamId, addPost } = require("../services/services");
 const auth = require('../middlewares/auth');
