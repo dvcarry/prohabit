@@ -31,20 +31,14 @@ router.patch("/", auth, async (req, res) => {
 
 router.get("/:user_id", auth, async (req, res) => {
 
-    console.log('params', req.params)
-
     const user_id = req.params.user_id || req.user_id;
-    // const user_id = req.user_id;
 
     try {
         const dones = await getMyDones(user_id);
         const onlyDates = dones.map(item => item.create_date)
-        console.log("🚀 ~ file: users.js:37 ~ router.get ~ onlyDates:", onlyDates)
         const formatedDones = dones.map(item => item.create_date.toLocaleDateString('ru-RU'))
         const firstDoneDate = dones[dones.length - 1].create_date;
-        console.log("🚀 ~ file: users.js:40 ~ router.get ~ firstDoneDate:", firstDoneDate)
         const dates = getDates(firstDoneDate, new Date())
-        console.log("🚀 ~ file: users.js:41 ~ router.get ~ dates:", dates)
         const datesWithDones = dates.map(date => ({ date, done: formatedDones.includes(date.toLocaleDateString('ru-RU')) }));
         const points = await getMyPoints(user_id);
         const name = await getUserName(user_id);
