@@ -8,6 +8,7 @@ const usersService = require("../services/usersService");
 const doneService = require("../services/doneService");
 
 
+
 router.patch("/", auth, async (req, res) => {
 
     const { name } = req.body;
@@ -45,6 +46,7 @@ router.get("/:user_id", auth, async (req, res) => {
         const userInfo = await usersService.getUserInfo(user_id);
         const levelInfo = doneService.getPointsForLevels(points);
         const series = calcSeries(onlyDates);
+
         res.status(200).send({ success: true, data: { ...userInfo, points, levelInfo, name, dates: datesWithDones, series } });
     } catch (error) {
         console.log(error)

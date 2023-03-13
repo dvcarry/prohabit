@@ -48,6 +48,7 @@ router.post("/", auth, async (req, res) => {
         let post = null;
         const usersInTeamCount = await calcUsersInTeamCount(team_id);
         const usersDoneToday = await getUsersDoneToday(team_id);
+        const difference = +usersInTeamCount - usersDoneToday.length;                        
         const isAllUsersInTeamDoneToday = +usersInTeamCount === usersDoneToday.length
         if (isAllUsersInTeamDoneToday) {
             post = await addPost(0, team_id, MESSAGE_ALL_TEAM_DONE);
