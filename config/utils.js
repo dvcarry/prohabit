@@ -28,9 +28,7 @@ function calcSeries(dones) {
         result++
         dones.shift()
     };
-    console.log('try', dones)
     for (let i = 0; i < dones.length; i++) {
-        console.log('try', dones[i].toLocaleDateString(), currentDate.addDays(i + 1).toLocaleDateString())
         if (dones[i].toLocaleDateString() === currentDate.addDays(i + 1).toLocaleDateString()) {
             result++
         } else {

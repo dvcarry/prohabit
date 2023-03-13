@@ -13,12 +13,13 @@ router.get("/", auth, async (req, res) => {
     try {
         const team_id = await getTeamId(user_id);
         const { rows: users } = await pool.query(`
-            SELECT id, name, points, last_done, today_done, last_login
+            SELECT users.id, name, points, last_done, today_done, last_login, level, line
             FROM users 
             LEFT JOIN (
                 SELECT user_id, COUNT(user_id) points, to_char(max(create_date),'DD.MM.YYYY') last_done, 
                 CASE WHEN  to_char(max(create_date),'DD-MM-YYYY') = to_char(current_date,'DD-MM-YYYY') THEN 1 ELSE 0 END AS today_done
                 FROM dones GROUP BY user_id) points ON users.id = points.user_id
+            LEFT JOIN users_habits ON users.id = users_habits.user_id
             WHERE users.team_id = $1
         `, [team_id]);
         const { rows: points } = await pool.query("SELECT * FROM teams WHERE id = $1", [team_id]);

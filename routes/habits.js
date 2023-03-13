@@ -27,7 +27,7 @@ router.post("/",
         const user_id = req.user_id
 
         try {
-            const { rows: user } = await pool.query("INSERT INTO users_habits (user_id, habit_id) VALUES ($1, $2) RETURNING *", [user_id, habit_id]);
+            const { rows: user } = await pool.query("INSERT INTO users_habits (user_id, habit_id, level, line) VALUES ($1, $2) RETURNING *", [user_id, habit_id, 1, 0]);
             await addUserToTeam(habit_id, user_id);
             res.status(201).send({ success: true, data: user[0] });
         } catch (error) {

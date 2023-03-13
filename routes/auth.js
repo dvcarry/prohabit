@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const { rows: users } = await pool.query("SELECT id, email, password FROM users WHERE email = $1", [email]);
+        const { rows: users } = await pool.query("SELECT id, email, password, name FROM users WHERE email = $1", [email]);
         if (users.length === 0) {
             res.send({ success: false });
         }

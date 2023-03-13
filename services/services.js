@@ -12,7 +12,7 @@ const getUsersByTeam = async team_id => {
 };
 
 const getUsersDoneToday = async team_id => {
-    const { rows: dones } = await pool.query("SELECT user_id FROM dones WHERE team_id = $1 AND DATE(create_date) = current_date", [team_id]);
+    const { rows: dones } = await pool.query("SELECT user_id FROM dones WHERE team_id = $1 AND DATE(create_date) = current_date AND type = $2", [team_id, 'done']);
     const users = dones.map(done => done.user_id)
     return users
 };
