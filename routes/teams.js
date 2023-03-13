@@ -27,10 +27,10 @@ router.get("/", auth, async (req, res) => {
         `, [team_id]);
         const { rows: points } = await pool.query("SELECT * FROM teams WHERE id = $1", [team_id]);
         
-        const telegram_id = await telegramService.getTelegramId(user_id);
-        if (telegram_id) {
-            await botFunctions.sendMessage(telegram_id, 'Вот оно и пришло!')
-        }
+        // const telegram_id = await telegramService.getTelegramId(user_id);
+        // if (telegram_id) {
+        //     await botFunctions.sendMessage(telegram_id, 'Вот оно и пришло!')
+        // }
 
         res.status(200).send({ users, points: points[0].points });
     } catch (error) {
